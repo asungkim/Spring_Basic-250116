@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @ResponseBody
@@ -88,7 +89,7 @@ public class HomeController {
         return Article.builder()
                 .body("내용")
                 .title("제목")
-                .deleted(true)
+                .isDeleted(true)
                 .build();
     }
 
@@ -103,12 +104,23 @@ public class HomeController {
     @GetMapping("/articleList")
     public List<Article> getArticleList() {
         return List.of(
-                Article.builder().title("제목1").body("내용1").deleted(false).build(),
-                Article.builder().title("제목2").body("내용2").deleted(false).build()
+                Article.builder().title("제목1").body("내용1").isDeleted(false).build(),
+                Article.builder().title("제목2").body("내용2").isDeleted(false).build()
         );
     }
 
+    @GetMapping("/articleList.html")
+    public String getArticleListHtml() {
+        Article a1 = Article.builder().title("제목1").body("내용1").isDeleted(false).build();
+        Article a2 = Article.builder().title("제목2").body("내용2").isDeleted(false).build();
 
+        List<Article> articleList = List.of(a1, a2);
+        String lis = articleList.stream()
+                .map(a -> "<li>%s</li>".formatted(a.getTitle()))
+                .collect(Collectors.joining());
+
+        return "<ul>" + lis + "</ul>"; // 자바에서 하지 않고 html에서 하려고 template(자바로 작동하는 html)
+    }
 
 }
 
@@ -119,5 +131,5 @@ class Article {
     private int id = 1;
     private final String title;
     private final String body;
-    private boolean deleted;
+    private boolean isDeleted;
 }
