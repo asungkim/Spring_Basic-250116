@@ -3,10 +3,7 @@ package com.example.demo.domain.wiseSaying.controller;
 import com.example.demo.domain.wiseSaying.entity.WiseSaying;
 import com.example.demo.domain.wiseSaying.service.WiseSayingService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,6 +31,11 @@ public class WiseSayingController {
     @GetMapping("wiseSayings/{id}")
     public WiseSaying getItem(@PathVariable int id) {
         return wiseSayingService.getItem(id).orElse(null);
+    }
+
+    @GetMapping("wiseSayings/{id}/delete")
+    public boolean deleteItem(@PathVariable int id) {
+        return wiseSayingService.deleteById(id);
     }
 
 
