@@ -53,4 +53,8 @@ public class WiseSayingService {
 
         return wiseSaying;
     }
+
+    public boolean deleteById(int id) {
+        return wiseSayingList.removeIf(w->w.getId()==id);
+    }
 }
