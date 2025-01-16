@@ -4,6 +4,7 @@ import com.example.demo.domain.wiseSaying.entity.WiseSaying;
 import com.example.demo.domain.wiseSaying.service.WiseSayingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,9 +31,9 @@ public class WiseSayingController {
     // GET /wiseSayings/1 -> 명언들 중에서 1번 가져와라
 
 
-    @GetMapping("wiseSayings/1")
-    public WiseSaying getItem() {
-        return wiseSayingService.getItem(1).orElse(null);
+    @GetMapping("wiseSayings/{id}")
+    public WiseSaying getItem(@PathVariable int id) {
+        return wiseSayingService.getItem(id).orElse(null);
     }
 
 
