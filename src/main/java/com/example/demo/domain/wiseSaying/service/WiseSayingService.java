@@ -2,65 +2,39 @@ package com.example.demo.domain.wiseSaying.service;
 
 import com.example.demo.domain.wiseSaying.entity.WiseSaying;
 import com.example.demo.domain.wiseSaying.repository.WiseSayingRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class WiseSayingService {
 
-    @Autowired
-    private WiseSayingRepository wiseSayingRepository;
-    private final List<WiseSaying> wiseSayingList;
-    private int lastId;
+    private final WiseSayingRepository wiseSayingRepository;
 
-    public WiseSayingService() {
-        this.wiseSayingList = new ArrayList<>();
-        this.lastId = 0;
-
-        WiseSaying wiseSaying1 = WiseSaying.builder()
-                .id(++lastId)
-                .content("명언1")
-                .author("제목1")
-                .build();
-
-        WiseSaying wiseSaying2 = WiseSaying.builder()
-                .id(++lastId)
-                .content("명언2")
-                .author("제목2")
-                .build();
-
-        wiseSayingList.add(wiseSaying1);
-        wiseSayingList.add(wiseSaying2);
-    }
 
     public List<WiseSaying> getAllItems() {
-        return wiseSayingList;
+        return wiseSayingRepository.findAll();
     }
 
     public Optional<WiseSaying> getItem(int id) {
-        return wiseSayingList.stream()
-                .filter(w->w.getId()==id)
-                .findFirst();
+        return wiseSayingRepository.findById(id);
     }
 
     public WiseSaying write(String content, String author) {
         WiseSaying wiseSaying = WiseSaying.builder()
-                .id(++lastId)
                 .content(content)
                 .author(author)
                 .build();
 
-        wiseSayingList.add(wiseSaying);
+        return wiseSayingRepository.save(wiseSaying);
 
-        return wiseSaying;
     }
 
     public boolean deleteById(int id) {
-        return wiseSayingList.removeIf(w->w.getId()==id);
+        return wiseSayingRepository.deleteById(id);
     }
 
     public WiseSaying modify(int id, String content, String author) {
