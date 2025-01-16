@@ -1,7 +1,6 @@
 package com.example.demo.domain.wiseSaying.service;
 
 import com.example.demo.domain.wiseSaying.entity.WiseSaying;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Component
 public class WiseSayingService {
     private final List<WiseSaying> wiseSayingList;
     private int lastId;
