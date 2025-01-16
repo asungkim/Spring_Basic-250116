@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Component
@@ -35,6 +36,12 @@ public class WiseSayingService {
 
     public List<WiseSaying> getAllItems() {
         return wiseSayingList;
+    }
+
+    public Optional<WiseSaying> getItem(int id) {
+        return wiseSayingList.stream()
+                .filter(w->w.getId()==id)
+                .findFirst();
     }
 
     public WiseSaying write(String content, String author) {
