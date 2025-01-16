@@ -3,6 +3,7 @@ package com.example.demo.domain.home.controller;
 
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +17,22 @@ import java.util.stream.Collectors;
 public class HomeController {
 
     private int age = 0;
+
+    @Autowired
+    private List<Integer> numList;
+
+    @Autowired
+    private List<Integer> numList2;
+
+    @GetMapping("/numList")
+    public List<Integer> getNumList() {
+        return numList;
+    }
+
+    @GetMapping("/numList2")
+    public List<Integer> getNumList2() {
+        return numList2;
+    }
 
 
     @GetMapping("/")
