@@ -1,6 +1,8 @@
 package com.example.demo.domain.wiseSaying.service;
 
 import com.example.demo.domain.wiseSaying.entity.WiseSaying;
+import com.example.demo.domain.wiseSaying.repository.WiseSayingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,6 +11,9 @@ import java.util.Optional;
 
 @Service
 public class WiseSayingService {
+
+    @Autowired
+    private WiseSayingRepository wiseSayingRepository;
     private final List<WiseSaying> wiseSayingList;
     private int lastId;
 
