@@ -1,7 +1,7 @@
 package com.example.demo.domain.home.controller;
 
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +13,7 @@ import java.util.Map;
 @Controller
 public class HomeController {
 
-    private int age=0;
+    private int age = 0;
 
 
     @GetMapping("/")
@@ -80,33 +80,39 @@ public class HomeController {
     @GetMapping("/arr")
     @ResponseBody
     public String[] getArr() {
-        return new String[]{"a","b","c"};
+        return new String[]{"a", "b", "c"};
     }
 
     @GetMapping("/list")
     @ResponseBody
     public List<String> getList() {
-        return List.of("a","b","c");
+        return List.of("a", "b", "c");
     }
 
     @GetMapping("/map")
     @ResponseBody
-    public Map<String,String> getMap() {
-        return Map.of("a","b","c","d");
+    public Map<String, String> getMap() {
+        return Map.of("a", "b", "c", "d");
     }
 
     @GetMapping("/article")
     @ResponseBody
     public Article getArticle() {
-        return new Article(1,"제목","내용");
+        return Article.builder()
+                .body("내용")
+                .title("제목")
+                .deleted(true)
+                .build();
     }
 
 }
 
 @Getter
-@AllArgsConstructor
+@Builder
 class Article {
-    private final int id;
+    @Builder.Default
+    private int id = 1;
     private final String title;
     private final String body;
+    private boolean deleted;
 }
