@@ -20,9 +20,19 @@ public class WiseSayingController {
         return wiseSayingService.getAllItems();
     }
 
+
     @GetMapping("wiseSaying/write")
     public WiseSaying writeWiseSaying(String content, @RequestParam(defaultValue = "작자미상") String author) {
         return wiseSayingService.write(content, author);
+    }
+
+    // GET /wiseSayings -> 명언들을 가져와라
+    // GET /wiseSayings/1 -> 명언들 중에서 1번 가져와라
+
+
+    @GetMapping("wiseSayings/1")
+    public WiseSaying getItem() {
+        return wiseSayingService.getItem(1).orElse(null);
     }
 
 
